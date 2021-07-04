@@ -1,1 +1,1 @@
-## Кастомный Webpack конфиг React & Typescript на основе конфига "Абсолют".
+## example with React & TS for meetup
