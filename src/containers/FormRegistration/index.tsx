@@ -1,5 +1,5 @@
 import React, { FC, memo, useEffect } from "react";
-import { Checkbox, FormControlLabel, Grid } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
@@ -8,6 +8,7 @@ import DatePicker from "@/components/DatePicker";
 import Button, { ButtonSize, ButtonType } from "@/components/Button";
 
 import { RegistrationSchema } from "@/validations/registration";
+import Checkbox from "@/components/Checkbox";
 
 interface FormRegistrationFieldsInterface {
   firstName: string;
@@ -99,15 +100,10 @@ const FormRegistration: FC = () => {
               name="hasPhone"
               control={control}
               render={({ field }) => (
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={!!field.value}
-                      {...field}
-                      color="primary"
-                    />
-                  }
+                <Checkbox
                   label="Есть телефон?"
+                  checked={!!field.value}
+                  {...field}
                 />
               )}
             />
