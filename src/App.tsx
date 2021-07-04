@@ -2,11 +2,7 @@ import React, { FC } from "react";
 
 import Button, { ButtonSize, ButtonType } from "@/components/Button";
 
-interface AppComponentPropsInterface {
-  id?: string;
-}
-
-const App: FC<AppComponentPropsInterface> = (props) => {
+const App: FC = (props) => {
   return (
     <div>
       <div>App component here</div>
