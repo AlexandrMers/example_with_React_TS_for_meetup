@@ -1,18 +1,16 @@
 import React, { FC } from "react";
 
-import MyComponent from "@/components/MyComponent";
+import Container from "@/components/Container";
+import Typography from "@/components/Typography";
+import FormRegistration from "@/containers/FormRegistration";
 
-import styles from "./style.module.scss";
-
-interface AppComponentPropsInterface {
-  id?: string;
-}
-
-const App: FC<AppComponentPropsInterface> = (props) => {
+const App: FC = () => {
   return (
     <div>
-      <div className={styles.main}>App component here</div>
-      <MyComponent />
+      <Container>
+        <Typography>Регистрация</Typography>
+        <FormRegistration />
+      </Container>
     </div>
   );
 };
