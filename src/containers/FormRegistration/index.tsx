@@ -46,6 +46,10 @@ const FormRegistration: FC<FormRegistrationPropsInterface> = (props) => {
           </Grid>
         </Grid>
 
+        <Grid item>
+          <Input label="Номер телефона" type="phone" />
+        </Grid>
+
         <Grid container item spacing={2}>
           <Grid item sm>
             <Input label="Пароль" />
