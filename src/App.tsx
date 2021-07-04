@@ -12,6 +12,7 @@ const App: FC = () => {
           style={{
             marginBottom: 25
           }}
+          align="center"
         >
           Регистрация
         </Typography>

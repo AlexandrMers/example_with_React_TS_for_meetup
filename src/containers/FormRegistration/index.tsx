@@ -1,62 +1,168 @@
-import React, { FC, memo } from "react";
+import React, { FC, memo, useEffect } from "react";
 import { Checkbox, FormControlLabel, Grid } from "@material-ui/core";
+import { Controller, useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 import Input from "@/components/Input";
 import DatePicker from "@/components/DatePicker";
 import Button, { ButtonSize, ButtonType } from "@/components/Button";
 
-interface FormRegistrationPropsInterface {}
+import { RegistrationSchema } from "@/validations/registration";
 
-const FormRegistration: FC<FormRegistrationPropsInterface> = (props) => {
+interface FormRegistrationFieldsInterface {
+  firstName: string;
+  lastName: string;
+  login: string;
+  email: string;
+  hasPhone: boolean;
+  birthdate: Date;
+  phone: string;
+  password: string;
+  confirmPassword: string;
+}
+
+const FormRegistration: FC = () => {
+  const {
+    register,
+    getValues,
+    control,
+    reset,
+    handleSubmit,
+    formState,
+    watch,
+    unregister
+  } = useForm<FormRegistrationFieldsInterface>({
+    resolver: yupResolver(RegistrationSchema)
+  });
+
+  const onSubmit = (data: FormRegistrationFieldsInterface) => {
+    console.log("success -> ", data);
+  };
+
+  const onReset = () => {
+    reset();
+  };
+
+  const hasPhone = watch("hasPhone");
+
+  useEffect(() => {
+    if (hasPhone) {
+      return undefined;
+    }
+    unregister("phone");
+  }, [hasPhone]);
+
   return (
-    <form>
+    <form onReset={onReset} onSubmit={handleSubmit(onSubmit)}>
       <Grid container direction="column" spacing={2}>
         <Grid container item spacing={2}>
           <Grid item sm>
-            <Input label="Имя" />
+            <Input
+              {...register("firstName")}
+              label="Имя"
+              error={!!formState.errors.firstName?.message}
+              helperText={formState.errors.firstName?.message}
+            />
           </Grid>
 
           <Grid item sm>
-            <Input label="Фамилия" />
+            <Input
+              {...register("lastName")}
+              label="Фамилия"
+              error={!!formState.errors.lastName?.message}
+              helperText={formState.errors.lastName?.message}
+            />
           </Grid>
         </Grid>
 
         <Grid item>
-          <Input label="Логин" />
+          <Input
+            {...register("login")}
+            label="Логин"
+            error={!!formState.errors.login?.message}
+            helperText={formState.errors.login?.message}
+          />
         </Grid>
 
         <Grid item>
-          <Input label="E-mail" />
+          <Input
+            {...register("email")}
+            label="E-mail"
+            error={!!formState.errors.email?.message}
+            helperText={formState.errors.email?.message}
+          />
         </Grid>
 
         <Grid container item spacing={2} alignItems="center">
           <Grid item sm>
-            <FormControlLabel
-              control={<Checkbox color="primary" />}
-              label="Есть телефон?"
+            <Controller
+              name="hasPhone"
+              control={control}
+              render={({ field }) => (
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={!!field.value}
+                      {...field}
+                      color="primary"
+                    />
+                  }
+                  label="Есть телефон?"
+                />
+              )}
             />
           </Grid>
 
           <Grid item sm>
-            <DatePicker
-              value=""
-              onChange={() => undefined}
-              label="Дата рождения"
+            <Controller
+              name="birthdate"
+              control={control}
+              render={({ field }) => {
+                return (
+                  <DatePicker
+                    value={getValues("birthdate") ?? null}
+                    onChange={field.onChange}
+                    label="Дата рождения"
+                    error={!!formState.errors.birthdate?.message}
+                    helperText={formState.errors.birthdate?.message}
+                  />
+                );
+              }}
             />
           </Grid>
         </Grid>
 
-        <Grid item>
-          <Input label="Номер телефона" type="phone" />
-        </Grid>
+        {hasPhone && (
+          <Grid item>
+            <Input
+              {...register("phone")}
+              label="Номер телефона"
+              type="tel"
+              error={!!formState.errors.phone?.message}
+              helperText={formState.errors.phone?.message}
+            />
+          </Grid>
+        )}
 
         <Grid container item spacing={2}>
           <Grid item sm>
-            <Input label="Пароль" />
+            <Input
+              {...register("password")}
+              label="Пароль"
+              type="password"
+              error={!!formState.errors.password?.message}
+              helperText={formState.errors.password?.message}
+            />
           </Grid>
 
           <Grid item sm>
-            <Input label="Повторите пароль" />
+            <Input
+              {...register("confirmPassword")}
+              label="Повторите пароль"
+              type="password"
+              error={!!formState.errors.confirmPassword?.message}
+              helperText={formState.errors.confirmPassword?.message}
+            />
           </Grid>
         </Grid>
 
