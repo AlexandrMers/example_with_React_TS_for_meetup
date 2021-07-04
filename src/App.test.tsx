@@ -1,8 +1,8 @@
 import React from "react";
+import { render, screen } from "@testing-library/react";
 
 // Components
 import App from "@/App";
-import { render, screen } from "@testing-library/react";
 
 describe("src/App.tsx", () => {
   describe("App", () => {

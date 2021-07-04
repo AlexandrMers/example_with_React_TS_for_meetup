@@ -1,8 +1,6 @@
 import React, { FC } from "react";
 
-import MyComponent from "@/components/MyComponent";
-
-import styles from "./style.module.scss";
+import Button, { ButtonSize, ButtonType } from "@/components/Button";
 
 interface AppComponentPropsInterface {
   id?: string;
@@ -11,8 +9,21 @@ interface AppComponentPropsInterface {
 const App: FC<AppComponentPropsInterface> = (props) => {
   return (
     <div>
-      <div className={styles.main}>App component here</div>
-      <MyComponent />
+      <div>App component here</div>
+
+      <Button typeButton={ButtonType.PRIMARY}>Регистрация</Button>
+      <Button
+        typeButton={ButtonType.SECONDARY}
+        sizeButton={ButtonSize.MIDDLE}
+        onClick={() => {
+          console.log("click run");
+        }}
+      >
+        Сбросить
+      </Button>
+      <Button typeButton={ButtonType.SECONDARY} sizeButton={ButtonSize.LARGE}>
+        Large
+      </Button>
     </div>
   );
 };
