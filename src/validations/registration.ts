@@ -1,7 +1,6 @@
 import * as yup from "yup";
 
 export const RegistrationSchema = yup.object({
-  hasPhone: yup.boolean(),
   firstName: yup.string().required("Обязательное поле"),
   lastName: yup.string().required("Обязательное поле"),
   login: yup.string().required("Обязательное поле"),
