@@ -8,7 +8,13 @@ const App: FC = () => {
   return (
     <div>
       <Container>
-        <Typography>Регистрация</Typography>
+        <Typography
+          style={{
+            marginBottom: 25
+          }}
+        >
+          Регистрация
+        </Typography>
         <FormRegistration />
       </Container>
     </div>
